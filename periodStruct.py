@@ -28,3 +28,22 @@ class StructPeriodic(Struct):
             f"SELECT * FROM ({sqlquery}) AS aa "
             f"WHERE `payment_date` >= '{begin}' AND `payment_date` <= '{end}' ORDER BY payment_date"
         )
+
+class PeriodStruct:
+    def __init__(self, begin_month=None, begin_year=None, end_month=None, end_year=None):
+        from datetime import date
+        self.begin_month = begin_month or date.today().month
+        self.begin_year = begin_year or date.today().year
+        self.end_month = end_month or self.begin_month
+        self.end_year = end_year or self.begin_year
+
+    def get_begin_date(self):
+        from utils import get_first_day_of_month
+        return get_first_day_of_month(self.begin_month, self.begin_year)
+
+    def get_end_date(self):
+        from utils import get_last_day_of_month
+        return get_last_day_of_month(self.end_month, self.end_year)
+
+    def __str__(self):
+        return f"{self.begin_month}/{self.begin_year} - {self.end_month}/{self.end_year}"

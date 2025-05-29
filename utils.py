@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 
 def get_first_day_of_month(month, year):
     """Returns the first day of the given month and year."""
